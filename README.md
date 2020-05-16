@@ -10,5 +10,7 @@ Security camera <br/>
 Musical Instrument <br/>
 -Mapping sounds to different frequencies to make an instrument<br/><br/>
 
-Frequency modulation <br/><br/>
+Frequency modulation synthesis engine <br/>
+Chowning paper on FM synth https://web.eecs.umich.edu/~fessler/course/100/misc/chowning-73-tso.pdf<br/>
+
 
