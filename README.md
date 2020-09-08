@@ -13,4 +13,5 @@ Musical Instrument <br/>
 Frequency modulation synthesis engine <br/>
 Chowning paper on FM synth https://web.eecs.umich.edu/~fessler/course/100/misc/chowning-73-tso.pdf<br/>
 
+Low Compute Cost optimisation ML algo for embeded or low power compute systems 
 
