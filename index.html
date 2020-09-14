@@ -1,0 +1,102 @@
+<html lang="en">
+  <head>
+    <title>Read an image file</title>
+    <link
+      rel="shortcut icon"
+      href="https://cdn.glitch.com/9b775a52-d700-4208-84e9-18578ee75266%2Ficon.jpeg?v=1585082912878"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <h1>Read an image file</h1>
+    <input type="file" id="file-selector" />
+    <p id="status"></p>
+    <div>
+      <canvas id="canvas" />
+      <img src="" alt="" style="visibility: hidden" id="placeholder" />
+    </div>
+    <p>Input Sign Text:  <input name="catTxt" type="text" maxlength="512" id="catTxt"/></p>
+    <p>Rect Size:  <input name="rectTxt" value="200x100" type="text" maxlength="512" id="rectTxt"/></p> </br></br>
+
+    <script>
+      const status = document.getElementById("status");
+      const canvas = document.getElementById("canvas");
+      const placeholder = document.getElementById("placeholder");
+      if (window.FileList && window.File && window.FileReader) {
+        document
+          .getElementById("file-selector")
+          .addEventListener("change", (event) => {
+            canvas.src = "";
+            status.textContent = "";
+            const file = event.target.files[0];
+            if (!file.type) {
+              status.textContent =
+                "Error: The File.type property does not appear to be supported on this browser.";
+              return;
+            }
+            if (!file.type.match("image.*")) {
+              status.textContent =
+                "Error: The selected file does not appear to be an image.";
+              return;
+            }
+            const reader = new FileReader();
+            reader.addEventListener("load", (event) => {
+              placeholder.src = event.target.result;
+              ctx = canvas.getContext("2d");
+              setTimeout(()=>{
+
+                canvas.width = placeholder.width;
+                canvas.height = placeholder.height;
+                ctx.drawImage(placeholder, 0, 0);
+              }, 300)
+
+            });
+            reader.readAsDataURL(file);
+          });
+          function getMousePosition(canvas, event) {
+            let rect = canvas.getBoundingClientRect();
+            let x = event.clientX - rect.left;
+            let y = event.clientY - rect.top;
+            return {x, y}
+        }
+
+        let canvasElem = document.querySelector("canvas");
+
+        canvasElem.addEventListener("mousedown", function(e)
+        {
+
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var {x, y} = getMousePosition(canvasElem, e);
+            txt = document.getElementById('catTxt').value;
+            rectangle_size = document.getElementById('rectTxt').value;
+            font_size = 50;
+            rectangle_size = rectangle_size.split("x")
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(placeholder, 0, 0);
+            context.beginPath();
+            context.rect(x, y, rectangle_size[0], rectangle_size[1]);
+            context.fillStyle = 'white';
+            context.fill();
+            context.lineWidth = 2;
+            context.strokeStyle = 'black';
+            context.stroke();
+            context.textAlign="center"; 
+            context.textBaseline = "middle";
+            do {
+                font_print = font_size + "px Arial";
+                context.font = font_print
+                width = context.measureText(txt).width
+                font_size = font_size - 1
+            } while (width>rectangle_size[0]-10);
+            
+            context.fillStyle = 'black';
+            context.fillText(txt, x+(rectangle_size[0]/2), y+(rectangle_size[1]/2));
+        });
+      }
+    </script>
+  </body>
+</html>

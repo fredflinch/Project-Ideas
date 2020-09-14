@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Input Sign Text:  <input name="catTxt" type="text" maxlength="512" id="catTxt"/></p> </br></br>
+    <canvas id="myCanvas" width="1000" height="1000"></canvas>
+    <script>
+      function getMousePosition(canvas, event) { 
+            let rect = canvas.getBoundingClientRect(); 
+            let x = event.clientX - rect.left; 
+            let y = event.clientY - rect.top; 
+            return {x, y} 
+        } 
+      
+        let canvasElem = document.querySelector("canvas"); 
+          
+        canvasElem.addEventListener("mousedown", function(e) 
+        {   
+
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('2d');
+            var {x, y} = getMousePosition(canvasElem, e);  
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.beginPath();
+            context.rect(x, y, 200, 100);
+            context.fillStyle = 'white';
+            context.fill();
+            context.lineWidth = 2;
+            context.strokeStyle = 'black';
+            context.stroke(); 
+            context.font = "30px Arial";
+            context.fillStyle = 'black';
+            txt = document.getElementById('catTxt').value;
+            console.log(txt)
+            context.fillText(txt, x+20, y+30);
+        });
+    </script>
+  </body>
+</html>
+      
