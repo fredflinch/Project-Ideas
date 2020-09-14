@@ -1,0 +1,15 @@
+main {
+  max-width: 38rem;
+  padding: 2rem;
+  margin: auto;
+}
+h1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+body {
+  background-color: lightblue;
+  margin: auto;
+  text-align: center;
+}
